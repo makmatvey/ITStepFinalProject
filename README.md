@@ -42,7 +42,7 @@
 
 1. **Клонируйте репозиторий:**
    ```bash
-   git clone "https://github.com/mak-matvey/ITStepFinalProject"
+   git clone "https://github.com/makmatvey/ITStepFinalProject"
    cd ITStepFinalProject/
    ```
 

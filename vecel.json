@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/arrivals/:path*",
-      "destination": "https://ВАШ-URL-API.vercel.app/arrivals/:path*"
+      "destination": "https://json-server-vercel-inky-eta.vercel.app/arrivals/:path*"
     },
     {
       "source": "/departures/:path*",
-      "destination": "https://ВАШ-URL-API.vercel.app/departures/:path*"
+      "destination": "https://json-server-vercel-inky-eta.vercel.app/departures/:path*"
     },
     {
       "source": "/fleet/:path*",
-      "destination": "https://ВАШ-URL-API.vercel.app/fleet/:path*"
+      "destination": "https://json-server-vercel-inky-eta.vercel.app/fleet/:path*"
     }
   ]
 }

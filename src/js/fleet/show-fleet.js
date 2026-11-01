@@ -1,26 +1,26 @@
-const fleetButton = document.getElementById('fleet-button')
-const fleetPlaceholder = document.getElementById('fleet-placeholder')
+const fleetButton = document.getElementById("fleet-button");
+const fleetPlaceholder = document.getElementById("fleet-placeholder");
 
 function getFleetURL() {
-    return 'http://127.0.0.1:3000/fleet'
+  return "/fleet";
 }
 
 async function fetchFleetData() {
-    const response = await fetch(getFleetURL())
+  const response = await fetch(getFleetURL());
 
-    if (!response.ok) {
-        throw new Error(`Ошибка загрузки: ${response.status}`)
-    }
+  if (!response.ok) {
+    throw new Error(`Ошибка загрузки: ${response.status}`);
+  }
 
-    return await response.json()
+  return await response.json();
 }
 
 function createFleetCard(aircraft) {
-    const imageHtml = aircraft.image 
-        ? `<img src="${aircraft.image}" alt="${aircraft.type}" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>✈️</div>'">`
-        : `<div class="no-image">✈️</div>`
-    
-    return `
+  const imageHtml = aircraft.image
+    ? `<img src="${aircraft.image}" alt="${aircraft.type}" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>✈️</div>'">`
+    : `<div class="no-image">✈️</div>`;
+
+  return `
         <div class="fleet-card">
             <div class="fleet-card-image">
                 ${imageHtml}
@@ -37,46 +37,47 @@ function createFleetCard(aircraft) {
                 <p class="fleet-card-description">${aircraft.description}</p>
             </div>
         </div>
-    `
+    `;
 }
 
 function showLoading() {
-    fleetPlaceholder.innerHTML = `
+  fleetPlaceholder.innerHTML = `
         <div class="fleet-loading">
             <div class="spinner"></div>
             <p>Загрузка данных о флоте...</p>
         </div>
-    `
+    `;
 }
 
 async function displayFleet() {
-    showLoading()
-    
-    try {
-        const data = await fetchFleetData()
-        
-        if (!data || data.length === 0) {
-            fleetPlaceholder.innerHTML = '<p class="error-container">Нет данных о флоте</p>'
-            return
-        }
-        
-        const fleetHTML = `
-            <div class="fleet-grid">
-                ${data.map(aircraft => createFleetCard(aircraft)).join('')}
-            </div>
-        `
-        
-        fleetPlaceholder.innerHTML = fleetHTML
-    } catch (error) {
-        console.error('Ошибка загрузки флота:', error)
-        showError(`Не удалось загрузить данные о флоте: ${error.message}`)
+  showLoading();
+
+  try {
+    const data = await fetchFleetData();
+
+    if (!data || data.length === 0) {
+      fleetPlaceholder.innerHTML =
+        '<p class="error-container">Нет данных о флоте</p>';
+      return;
     }
+
+    const fleetHTML = `
+            <div class="fleet-grid">
+                ${data.map((aircraft) => createFleetCard(aircraft)).join("")}
+            </div>
+        `;
+
+    fleetPlaceholder.innerHTML = fleetHTML;
+  } catch (error) {
+    console.error("Ошибка загрузки флота:", error);
+    showError(`Не удалось загрузить данные о флоте: ${error.message}`);
+  }
 }
 
 if (fleetButton) {
-    fleetButton.addEventListener('click', displayFleet)
+  fleetButton.addEventListener("click", displayFleet);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    displayFleet()
-})
+document.addEventListener("DOMContentLoaded", () => {
+  displayFleet();
+});
